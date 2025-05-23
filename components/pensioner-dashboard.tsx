@@ -60,6 +60,7 @@ export default function PensionerDashboard() {
       })
 
       videoRef.current.srcObject = stream
+      videoRef.current.style.transform = "scaleX(-1)"
       setCameraActive(true)
       setVerificationStatus("Position your face within the circle and ensure good lighting.")
       setVerificationProgress(25)
@@ -79,6 +80,7 @@ export default function PensionerDashboard() {
     canvasRef.current.width = videoRef.current.videoWidth
     canvasRef.current.height = videoRef.current.videoHeight
 
+    context.scale(-1, 1)
     context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height)
 
     setImageCaptured(true)
@@ -501,7 +503,14 @@ export default function PensionerDashboard() {
 
             {/* Camera view */}
             <div className="relative w-full h-64 bg-black rounded-md overflow-hidden">
-              <video ref={videoRef} className="w-full h-full object-cover" autoPlay playsInline muted />
+              <video 
+                ref={videoRef} 
+                className="w-full h-full object-cover" 
+                autoPlay 
+                playsInline 
+                muted 
+                style={{ transform: 'scaleX(-1)' }} // Add this line
+              />
               <canvas ref={canvasRef} className="hidden" />
 
               {/* Face overlay */}
